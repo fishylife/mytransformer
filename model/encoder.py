@@ -1,9 +1,7 @@
 import torch.nn as nn
 import torch
-from position import positional_encoding
-from FFN import FFN
-from embedding import embedding
-from attention import multi_head_attention
+from model.FFN import FFN
+from model.attention import multi_head_attention
 
 class encoder_layer(nn.Module):
     def __init__(self, d_model, num_heads, d_ff, dropout = 0.1):

@@ -1,7 +1,7 @@
 import torch.nn as nn
 import torch
-from attention import multi_head_attention, cross_attention
-from FFN import FFN
+from model.attention import multi_head_attention, cross_attention
+from model.FFN import FFN
 
 class decoder_layer(nn.Module):
     def __init__(self, d_model, num_heads, d_ff, dropout=0.1):
