@@ -1,2 +1,2 @@
 # mytransformer
-a lightmem transformer for study
+a light transformer for study

@@ -16,9 +16,10 @@ class FFN(nn.Module):
         x = self.linear2(x)
         return x
 
-#test
-ffn = FFN(d_model=512, d_ff=2048, dropout=0.1)
-x = torch.randn(1, 10, 512)  # Example input tensor with shape (batch_size, sequence_length, d_model)
-output = ffn(x)
-print(output)
+if __name__ == "__main__":
+    #test
+    ffn = FFN(d_model=512, d_ff=2048, dropout=0.1)
+    x = torch.randn(1, 10, 512)  # Example input tensor with shape (batch_size, sequence_length, d_model)
+    output = ffn(x)
+    print(output)
 

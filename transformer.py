@@ -31,12 +31,13 @@ class transformer(nn.Module):
         output = self.output_layer(tgt)
         return output
 
-#test
-transformer_model = transformer(d_model=512, num_heads=8, d_ff=2048, src_vocab_size=10000, tgt_vocab_size=10000, dropout=0.1, layers=6)
-src = torch.randint(0, 10000, (1, 10))  # Example source input tensor with shape (batch_size, sequence_length)
-tgt = torch.randint(0, 10000, (1, 10))  # Example target input tensor with shape (batch_size, sequence_length)
-print(src.shape)  # Should print torch.Size([1, 10])
-print(tgt.shape)  # Should print torch.Size([1, 10])
-output = transformer_model(src, tgt)
-print(output.shape)  # Should print torch.Size([1, 10, 10000])
+if __name__ == "__main__":
+    # test
+    transformer_model = transformer(d_model=512, num_heads=8, d_ff=2048, src_vocab_size=10000, tgt_vocab_size=10000, dropout=0.1, layers=6)
+    src = torch.randint(0, 10000, (1, 10))  # Example source input tensor with shape (batch_size, sequence_length)
+    tgt = torch.randint(0, 10000, (1, 10))  # Example target input tensor with shape (batch_size, sequence_length)
+    print(src.shape)  # Should print torch.Size([1, 10])
+    print(tgt.shape)  # Should print torch.Size([1, 10])
+    output = transformer_model(src, tgt)
+    print(output.shape)  # Should print torch.Size([1, 10, 10000])
 

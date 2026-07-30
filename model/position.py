@@ -17,8 +17,9 @@ class positional_encoding(nn.Module):
         x = x + self.pe[:, :x.size(1), :]
         return x
 
-#test
-pos_encoding = positional_encoding(d_model=512, max_len=100)
-x = torch.randn(1, 10, 512)  # Example input tensor with shape (batch_size, sequence_length, d_model)
-output = pos_encoding(x)
-print(output)
+if __name__ == "__main__":
+    #test
+    pos_encoding = positional_encoding(d_model=512, max_len=100)
+    x = torch.randn(1, 10, 512)  # Example input tensor with shape (batch_size, sequence_length, d_model)
+    output = pos_encoding(x)
+    print(output)
