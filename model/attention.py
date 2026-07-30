@@ -46,8 +46,25 @@ class multi_head_attention(nn.Module):
         output = self.Wo(output)
         return output
 
+class cross_attention(multi_head_attention):
+    def forward(self, k, q, v, mask = None):
+        batch_size = q.size(0)
+        K = self.Wk(k).view(batch_size, -1, self.num_heads, self.head_d).transpose(1, 2)
+        Q = self.Wq(q).view(batch_size, -1, self.num_heads, self.head_d).transpose(1, 2)
+        V = self.Wv(v).view(batch_size, -1, self.num_heads, self.head_d).transpose(1, 2)
+        score = torch.matmul(K, Q.transpose(-2, -1))/ math.sqrt(self.head_d)
+        if mask is not None:
+            score = score.masked_fill(mask == 0, -1e9)
+        score = torch.softmax(score, dim=-1)
+        score = self.dropout(score)
+        output = torch.matmul(score, V).transpose(1, 2).contiguous().view(batch_size, -1, self.d_model)
+        output = self.Wo(output)
+        return output
+
+
+
 #test
 x = torch.randn(1, 2, 512)
-attention = multi_head_attention(d_model=512, num_heads=8)
-output = attention(x)
+attention = cross_attention(d_model=512, num_heads=8)
+output = attention(x, x, x)
 print(output)
