@@ -28,12 +28,13 @@ class encoder(nn.Module):
             x = layer(x, mask)
         return x
 
-#test
-d_model = 512
-num_heads = 8
-d_ff = 2048
-encoder_layer = encoder_layer(d_model, num_heads, d_ff)
-x = torch.randn(1, 10, d_model)  # Example input tensor with shape (batch_size, sequence_length, d_model)
-output = encoder_layer(x)
-print(output.shape)  # Should print torch.Size([1, 10, 512])
+if __name__ == "__main__":
+    #test
+    d_model = 512
+    num_heads = 8
+    d_ff = 2048
+    encoder_layers_test = encoder_layer(d_model, num_heads, d_ff)
+    x = torch.randn(1, 10, d_model)  # Example input tensor with shape (batch_size, sequence_length, d_model)
+    output = encoder_layers_test(x)
+    print(output.shape)  # Should print torch.Size([1, 10, 512])
 

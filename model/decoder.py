@@ -32,12 +32,13 @@ class decoder(nn.Module):
             x = layer(x, encoder_output, src_mask, tgt_mask)
         return x
 
-#test
-d_model = 512
-num_heads = 8
-d_ff = 2048
-decoder_layer = decoder_layer(d_model, num_heads, d_ff)
-x = torch.randn(1, 10, d_model)
-encoder_output = torch.randn(1, 10, d_model)
-output = decoder_layer(x, encoder_output)
-print(output.shape)
+if __name__ == "__main__":
+    #test
+    d_model = 512
+    num_heads = 8
+    d_ff = 2048
+    decoder_layer_test = decoder_layer(d_model, num_heads, d_ff)
+    x = torch.randn(1, 10, d_model)
+    encoder_output = torch.randn(1, 10, d_model)
+    output = decoder_layer_test(x, encoder_output)
+    print(output.shape)

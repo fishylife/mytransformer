@@ -63,8 +63,9 @@ class cross_attention(multi_head_attention):
 
 
 
-#test
-x = torch.randn(1, 2, 512)
-attention = cross_attention(d_model=512, num_heads=8)
-output = attention(x, x, x)
-print(output)
+if __name__ == "__main__":
+    #test
+    x = torch.randn(1, 2, 512)
+    attention_test = cross_attention(d_model=512, num_heads=8)
+    output = attention_test(x, x, x)
+    print(output)
