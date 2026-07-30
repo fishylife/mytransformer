@@ -16,7 +16,7 @@ class self_attention(nn.Module):
         Q = self.Wq(x)
         V = self.Wv(x)
 
-        score = torch.softmax(torch.matmul(K, Q.T) / math.sqrt(x.size(-1)), dim=-1)
+        score = torch.softmax(torch.matmul(Q, K.transpose(-2, -1)) / math.sqrt(x.size(-1)), dim=-1)
         output = torch.matmul(score, V)
         return output
 
@@ -37,7 +37,7 @@ class multi_head_attention(nn.Module):
         K = self.Wk(x).view(batch_size, -1, self.num_heads, self.head_d).transpose(1, 2)
         Q = self.Wq(x).view(batch_size, -1, self.num_heads, self.head_d).transpose(1, 2)
         V = self.Wv(x).view(batch_size, -1, self.num_heads, self.head_d).transpose(1, 2)
-        score = torch.matmul(K, Q.transpose(-2, -1))/ math.sqrt(self.head_d)
+        score = torch.matmul(Q, K.transpose(-2, -1))/ math.sqrt(self.head_d)
         if mask is not None:
             score = score.masked_fill(mask == 0, -1e9)
         score = torch.softmax(score, dim=-1)
@@ -52,7 +52,7 @@ class cross_attention(multi_head_attention):
         K = self.Wk(k).view(batch_size, -1, self.num_heads, self.head_d).transpose(1, 2)
         Q = self.Wq(q).view(batch_size, -1, self.num_heads, self.head_d).transpose(1, 2)
         V = self.Wv(v).view(batch_size, -1, self.num_heads, self.head_d).transpose(1, 2)
-        score = torch.matmul(K, Q.transpose(-2, -1))/ math.sqrt(self.head_d)
+        score = torch.matmul(Q, K.transpose(-2, -1))/ math.sqrt(self.head_d)
         if mask is not None:
             score = score.masked_fill(mask == 0, -1e9)
         score = torch.softmax(score, dim=-1)

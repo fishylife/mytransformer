@@ -18,7 +18,7 @@ class decoder_layer(nn.Module):
 
     def forward(self, x, encoder_output, src_mask=None, tgt_mask=None):
         x = self.norm1(x + self.dropout1(self.self_attention(x, tgt_mask)))
-        x = self.norm2(x + self.dropout2(self.cross_attention(x, encoder_output, x, src_mask)))
+        x = self.norm2(x + self.dropout2(self.cross_attention(encoder_output, x, encoder_output, src_mask)))
         x = self.norm3(x + self.dropout3(self.ffn(x)))
         return x
 

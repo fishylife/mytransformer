@@ -18,14 +18,14 @@ class transformer(nn.Module):
         self.dropout = nn.Dropout(dropout)
 
     def forward(self, src, tgt, src_mask=None, tgt_mask=None):
-        src = self.encoder_embedding(src) * math.sqrt(self.encoder_embedding.d_model)
-        src = self.dropout(src)
+        src = self.encoder_embedding(src)
         src = self.position(src)
+        src = self.dropout(src)
         src = self.encoder(src, src_mask)
 
-        tgt = self.decoder_embedding(tgt) * math.sqrt(self.decoder_embedding.d_model)
-        tgt = self.dropout(tgt)
+        tgt = self.decoder_embedding(tgt)
         tgt = self.position(tgt)
+        tgt = self.dropout(tgt)
         tgt = self.decoder(tgt, src, src_mask, tgt_mask)
 
         output = self.output_layer(tgt)
